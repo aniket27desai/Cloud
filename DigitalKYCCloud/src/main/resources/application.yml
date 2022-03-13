@@ -1,0 +1,17 @@
+server:
+  port : 6001
+  
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: header_route
+        uri: http://10.102.9.57:9096/
+        predicates:
+        - Path=/ATMIssuer/**
+        - Header=BankCode, SRCB01
+      - id: header_route2
+        uri: http://10.102.9.57:9097/
+        predicates:
+        - Path=/ATMIssuer/**
+        - Header=BankCode, SRCB02

@@ -6,12 +6,39 @@ spring:
     gateway:
       routes:
       - id: header_route
-        uri: http://10.102.9.57:9096/
+        uri: http://localhost:8082/cbs/lookups
         predicates:
-        - Path=/ATMIssuer/**
-        - Header=BankCode, SRCB01
-      - id: header_route2
-        uri: http://10.102.9.57:9097/
-        predicates:
-        - Path=/ATMIssuer/**
+        - Path=/cbs/**
         - Header=BankCode, SRCB02
+      - id: header_route4
+        uri: http://10.100.9.105
+        predicates:
+        - Path=/cbs/create/account
+        - Header=BankCode, SRCB01
+        filters:
+        - RewritePath=/cbs(?<segment>/?.*), /EBS_API/AccountOpening$\{segment}
+      - id: header_route3
+        uri: http://10.100.9.105
+        predicates:
+        - Path=/cbs/**
+        - Header=BankCode, SRCB01
+        filters:
+        - RewritePath=/cbs(?<segment>/?.*), /EBS_API/AccountOpening/request$\{segment}
+      
+  security: 
+    user: 
+      name: sil@123
+      password: Sil@123
+      
+logging:
+  file:
+    name: CloudLog.log
+  level:
+    reactor:
+      netty: INFO
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE
+    
+  

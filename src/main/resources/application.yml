@@ -5,12 +5,12 @@ spring:
   cloud:
     gateway:
       routes:
-      - id: header_route
+      - id: header_route1
         uri: http://localhost:8082/cbs/lookups
         predicates:
         - Path=/cbs/**
-        - Header=BankCode, SRCB02
-      - id: header_route4
+        - Header=BankCode, SRCB03
+      - id: header_route2
         uri: http://10.100.9.105
         predicates:
         - Path=/cbs/create/account

@@ -9,7 +9,7 @@ spring:
         uri: http://localhost:8082/cbs/lookups
         predicates:
         - Path=/cbs/**
-        - Header=BankCode, SRCB02
+        - Header=BankCode, SRCB03
       - id: header_route4
         uri: http://10.100.9.105
         predicates:
